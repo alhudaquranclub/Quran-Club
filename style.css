@@ -1,0 +1,356 @@
+body {
+    background-color: rgb(46, 46, 46);
+    margin: 0; 
+    font-family: 'Space Grotesk', sans-serif; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    height: 100px; 
+    width: 100%;
+    max-width: 1000px; 
+    margin-top: 10px; 
+    backdrop-filter: blur(10px);
+    background: rgba(95, 95, 95, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 50px;
+    padding: 0 30px; 
+    box-sizing: border-box;
+    position: relative;
+    z-index: 100;
+}
+
+.navleft img {
+       height: 50vh;
+        width: 50vh;
+    display: block;
+}
+
+.navright a {
+    text-decoration: none;
+    color: white;
+    margin-left: 20px; 
+    font-size: 18px;
+    padding: 12px 24px; 
+    border-radius: 90px;
+    background: #6e6d6d4f;
+    transition: background 0.3s ease, color 0.3s ease; 
+}
+
+.navright a:hover {
+    background: rgba(255, 255, 255, 0.986);
+    color: black;
+}
+
+.about {
+    width: 100%;
+    max-width: 1000px; 
+    margin-top: 80px; 
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.about h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: white;
+    font-size: 48px; 
+    margin: 0 0 20px 0; 
+}
+
+.about-text {
+    font-family: 'Poppins', sans-serif; 
+    color: rgba(255, 255, 255, 0.85); 
+    font-size: 16px; 
+    font-weight: 300; 
+    line-height: 1.7; 
+    max-width: 550px; 
+    margin: 0;
+    text-align: left;
+}
+
+.about img {
+    height: 50vh;
+    width: 50vh;
+    float: right;
+    position: relative;
+    top: -45vh;
+    padding: 10px;
+    background: #00000059;
+    border-radius: 30px;
+}
+
+/* Hide real menu button on default desktop sizes */
+.menu-icon-btn {
+    display: none;
+}
+
+/* --- Optimized Extreme Responsiveness Framework Below --- */
+
+/* Tablets and small laptops */
+@media (max-width: 900px) {
+    .about {
+        padding: 0 40px;
+    }
+    .about img {
+        height: 35vh;
+        width: 35vh;
+        top: -32vh;
+    }
+}
+
+/* Smartphones and Mobile Devices */
+@media (max-width: 768px) {
+    .navbar {
+        border-radius: 25px;
+        padding: 0 20px;
+        margin-top: 15px;
+    }
+
+    .navleft img {
+        height: 50vh;
+    }
+
+    /* Style the real interactive menu button */
+    .menu-icon-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        position: relative;
+        left:-10px;
+    }
+
+    .menu-icon-btn .line {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: white;
+        border-radius: 2px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+
+    /* Beautiful layout for dropdown links drawer */
+    .navright {
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 82px;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: rgba(35, 35, 35, 0.96);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    }
+
+    .navright a {
+        margin: 8px 0;
+        display: block;
+        padding-right:100px ;
+        padding-left: 100px;
+        margin-left: 0;
+        font-size: 16px;
+    }
+
+    /* Open State: Triggered smoothly via CSS when requested */
+    .nav-open .navright {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* Smooth conversion animations mapping directly to an 'X' icon */
+    .nav-open .line1 {
+        transform: translateY(7.5px) rotate(45deg);
+    }
+    .nav-open .line2 {
+        opacity: 0;
+    }
+    .nav-open .line3 {
+        transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Clean content linear flow stacked for small device interfaces */
+    .about {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 24px;
+    }
+
+    .about h1 {
+        font-size: 34px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .about-text {
+        max-width: 100%;
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 35px;
+    }
+
+    .about img {
+        float: none;
+        position: static;
+        height: 260px;
+        width: 260px;
+        max-width: 85vw;
+    }
+}
+
+/* Extra Small Screens (Compact phones like iPhone SE / under 360px wide) */
+@media (max-width: 360px) {
+    .navbar {
+        height: 64px;
+        width: calc(100% - 20px);
+        max-width: 100%;
+        padding: 0 12px;
+    }
+    .navleft img {
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+    }
+    .nav-open .line1 {
+        transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav-open .line3 {
+        transform: translateY(-6.5px) rotate(-45deg);
+    }
+    .navright {
+        top: 70px;
+    }
+    .about h1 {
+        font-size: 28px;
+    }
+    .about img {
+        height: 200px;
+        width: 200px;
+    }
+}
+
+/* --- Added Brand Footer Styling Rules (Maintained alignment with your project style) --- */
+.site-footer {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: auto;
+    padding: 40px 20px 20px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer p {
+    font-family: 'Poppins', sans-serif;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    margin: 0;
+}
+
+.admin-link-icon {
+    color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.admin-link-icon:hover {
+    color: rgb(248, 248, 33);
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 30px 24px;
+    }
+}
+/* Compact Header & Buttons */
+        .dashboard-header {
+            margin-bottom: 15px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 22px !important;
+        }
+
+        .dashboard-header p {
+            font-size: 11px !important;
+            margin-top: 2px !important;
+        }
+
+        /* Smaller Primary Save Button */
+        .btn-compact {
+            background: #b4d32b;
+            color: #000000;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-compact:hover {
+            background: #c7ea32;
+            transform: translateY(-1px);
+        }
+
+        /* Compact Subheader bars for Attendance / Recitation */
+        .section-header-compact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-header-compact h3 {
+            font-size: 14px !important;
+            margin: 0 !important;
+        }
+
+        .section-header-compact label, 
+        .section-header-compact p {
+            font-size: 11px !important;
+        }
+
+        .section-header-compact input[type="date"] {
+            padding: 3px 6px;
+            font-size: 11px;
+            border-radius: 6px;
+        }

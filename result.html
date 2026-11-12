@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results - Al-Huda Quran Club</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Untitled_Design-removebg-preview.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .results-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            color: #ffffff;
+        }
+
+        .results-card {
+            background: rgba(35, 35, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #b4d32b;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="main-navbar">
+        <div class="navleft">
+            <img src="Al-Hudā Qur’ān Club Logo-Photoroom.png" alt="Al-Huda Quran Club Logo">
+        </div>
+        
+        <button class="menu-icon-btn" aria-label="Toggle Menu" onclick="document.getElementById('main-navbar').classList.toggle('nav-open')">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+        </button>
+
+        <div class="navright">
+            <a href="index.html">Home</a>
+            <a href="results.html" style="background: rgba(255, 255, 255, 0.986); color: black;">Results</a>
+            <a href="#">Gallery</a>
+        </div>
+    </nav>
+
+    <!-- Results Display Section -->
+    <div class="results-container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 36px; margin: 0;">Student <span style="color:#b4d32b;">Exam Results</span></h1>
+            <p style="font-family: 'Poppins'; color: rgba(255,255,255,0.7); margin-top: 8px;">Official examination scores, viva marks, and note marks</p>
+        </div>
+
+        <div class="results-card">
+            <p id="results-sync-status" role="status" aria-live="polite" style="font-family: 'Poppins'; color: rgba(255,255,255,0.7); margin-top: 0; font-size: 13px;"></p>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Exam</th>
+                            <th>Viva</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody id="public-results-body">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Al-Huda Quran Club. All rights reserved.</p>
+        <a href="admin.html" class="admin-link-icon" title="Admin Portal">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/><path d="M12 13c-2 0-4 1-4 3v1h8v-1c0-2-2-3-4-3z"/>
+            </svg>
+        </a>
+    </footer>
+
+    <script>
+        const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzBlFILNMGx2gnC3sdGYRE9h_Pnnh7NmgLZXQ8Rte8teuPnqEKr-Uu210Py1PQjkyHb/exec";
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[char]);
+        }
+
+        function getSavedStudents() {
+            return JSON.parse(localStorage.getItem('alhuda_students')) || [
+                { id: 101, name: "Aisha Abdullah", examMark: 95, vivaMark: 48, noteMark: 9 },
+                { id: 102, name: "Youssef Hassan", examMark: 88, vivaMark: 42, noteMark: 8 },
+                { id: 103, name: "Zaid Omar", examMark: 76, vivaMark: 35, noteMark: 7 }
+            ];
+        }
+
+        function renderResults(students) {
+            const tbody = document.getElementById('public-results-body');
+            tbody.innerHTML = '';
+
+            students.forEach(st => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${escapeHtml(st.id)}</td>
+                        <td><strong>${escapeHtml(st.name)}</strong></td>
+                        <td>${escapeHtml(st.examMark)}</td>
+                        <td>${escapeHtml(st.vivaMark)}</td>
+                        <td>${escapeHtml(st.noteMark !== undefined ? st.noteMark : 0)}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function loadResults() {
+            renderResults(getSavedStudents());
+            const status = document.getElementById('results-sync-status');
+            status.textContent = "Checking for the latest results...";
+
+            try {
+                const res = await fetch(GOOGLE_SHEET_WEBHOOK_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`Request failed (${res.status})`);
+                const data = await res.json();
+                if (!data || !Array.isArray(data.students) ||
+                    !data.students.every(st => st && Number.isSafeInteger(st.id) && typeof st.name === 'string')) {
+                    throw new Error("Google Sheets returned invalid student data.");
+                }
+
+                localStorage.setItem('alhuda_students', JSON.stringify(data.students));
+                renderResults(data.students);
+                status.textContent = "Results updated from Google Sheets.";
+            } catch (err) {
+                status.textContent = `Showing saved results; Google Sheets refresh failed: ${err.message}`;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadResults);
+    </script>
+</body>
+</html>
