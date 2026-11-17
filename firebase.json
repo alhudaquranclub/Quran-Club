@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "site": "alhudaquranclub",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".git/**",
+      "**/.git/**",
+      ".firebase/**",
+      "**/.firebase/**",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

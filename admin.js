@@ -1,4 +1,4 @@
-const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbx-FgMwL_DDWZTdetuTZLJ0Yep6VxWPzfvWuc63uIwUMfXcjLkd-aVJBj3RtcRoQEOm/exec";
+const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxgbnyYQdWmX5AmRGD2vOGjES3ZOh6x33l-2v5w-SUc1JtVoIEDekWli7jBVzqJkXeD/exec";
 
 let students = JSON.parse(localStorage.getItem('alhuda_students')) || [];
 let normalAttendance = JSON.parse(localStorage.getItem('alhuda_normal_attendance')) || {};
@@ -39,6 +39,7 @@ async function loginAdmin() {
         document.getElementById('auth-error').classList.add('hidden');
 
         renderAllTables();
+        initializeAdminTabFromHash();
         await syncFromGoogleSheets(true);
     } else {
         document.getElementById('auth-error').classList.remove('hidden');
@@ -56,12 +57,42 @@ function logoutAdmin() {
     }
 }
 
-function switchTab(tabId, btnElement) {
+function getRequestedAdminTab() {
+    const hash = (window.location.hash || '').replace('#', '').trim().toLowerCase();
+    const tabMap = {
+        attendance: 'tab-attendance',
+        recitation: 'tab-recitation',
+        results: 'tab-results',
+        students: 'tab-students'
+    };
+    return tabMap[hash] || 'tab-results';
+}
+
+function switchTab(tabId, tabLink) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById(tabId).classList.remove('hidden');
-    btnElement.classList.add('active');
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.remove('hidden');
+
+    if (tabLink) tabLink.classList.add('active');
+
+    if (window.location.hash !== `#${tabId.replace('tab-', '')}`) {
+        window.history.replaceState(null, '', `#${tabId.replace('tab-', '')}`);
+    }
 }
+
+function initializeAdminTabFromHash() {
+    const requestedTab = getRequestedAdminTab();
+    const tabLink = document.querySelector(`.tab-btn[href="#${requestedTab.replace('tab-', '')}"]`);
+    switchTab(requestedTab, tabLink);
+}
+
+window.addEventListener('hashchange', () => {
+    const dashboard = document.getElementById('admin-dashboard');
+    if (dashboard && !dashboard.classList.contains('hidden')) {
+        initializeAdminTabFromHash();
+    }
+});
 
 function sanitizeAndSortStudents() {
     const uniqueMap = {};
@@ -133,7 +164,7 @@ function loadAttendanceDate() {
                 <td>${st.id}</td>
                 <td>${st.name}</td>
                 <td>
-                    <button class="status-btn ${isPresent ? 'status-present' : 'status-absent'}" 
+                    <button type="button" class="status-btn ${isPresent ? 'status-present' : 'status-absent'}"
                         onclick="toggleAttendance('${date}', '${key}')">
                         ${isPresent ? '✓ Present' : '✗ Absent'}
                     </button>
@@ -172,7 +203,7 @@ function loadRecitationDate() {
                 <td>${st.id}</td>
                 <td>${st.name}</td>
                 <td>
-                    <button class="status-btn ${isDone ? 'status-present' : 'status-absent'}" 
+                    <button type="button" class="status-btn ${isDone ? 'status-present' : 'status-absent'}"
                         onclick="toggleRecitation('${date}', '${key}')">
                         ${isDone ? '✓ Done' : '✗ Not Done'}
                     </button>
@@ -230,7 +261,7 @@ function renderStudentsList() {
             <tr>
                 <td>${st.id}</td>
                 <td>${st.name}</td>
-                <td><button style="background:#ff5252; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:11px;" onclick="deleteStudent(${st.id})">Delete</button></td>
+                <td><button type="button" style="background:#ff5252; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:11px;" onclick="deleteStudent(${st.id})">Delete</button></td>
             </tr>
         `;
     });
