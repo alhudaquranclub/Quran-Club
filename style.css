@@ -28,8 +28,8 @@ body {
 }
 
 .intro-loader img {
-    width: min(60vw, 50vh);
-    height: min(60vw, 50vh);
+    width: min(60vw, 60vh);
+    height: min(60vw, 60vh);
     object-fit: contain;
 }
 
@@ -960,6 +960,58 @@ button,
 @media (max-width: 700px) {
     .gallery-heading h1 {
         font-size: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-actions {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .gallery-action-button,
+    .gallery-action-link {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .gallery-action-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .gallery-image-view-icon {
+        right: 8px;
+        bottom: 8px;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 360px) {
+    .gallery-actions {
+        gap: 4px;
+        padding: 6px;
+    }
+
+    .gallery-action-button,
+    .gallery-action-link {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .gallery-action-icon {
+        width: 11px;
+        height: 11px;
+    }
+
+    .gallery-image-view-icon {
+        right: 6px;
+        bottom: 6px;
+        width: 28px;
+        height: 28px;
     }
 }
 
