@@ -28,8 +28,8 @@ body {
 }
 
 .intro-loader img {
-    width: min(60vw, 70vh);
-    height: min(60vw, 70vh);
+    width: min(60vw, 280px);
+    height: min(60vw, 280px);
     object-fit: contain;
 }
 
@@ -69,7 +69,7 @@ body {
     align-items: center; 
     height: 100px; 
     width: 100%;
-    max-width: 1250px; 
+    max-width: 1000px; 
     margin-top: 10px; 
     backdrop-filter: blur(10px);
     background: rgba(95, 95, 95, 0.15); 
@@ -131,18 +131,17 @@ button,
     grid-area: title;
     font-family: 'Space Grotesk', sans-serif;
     color: white;
-    font-size: clamp(34px, 4vw, 50px);
+    font-size: clamp(34px, 4vw, 48px);
     margin: 0;
     position: relative;
-    top: 0.5vh;
-    left: -10vh;
+    top: 5vh;
 }
 
 .about-text {
     grid-area: copy;
     font-family: 'Poppins', sans-serif; 
     color: rgba(255, 255, 255, 0.85); 
-    font-size: 18px; 
+    font-size: 16px; 
     font-weight: 300; 
     line-height: 1.7; 
     max-width: 550px; 
@@ -150,7 +149,6 @@ button,
     text-align: left;
     position: relative;
     top: -5vh;
-    left: -10vh;
 }
 
 .cta-row {
@@ -182,8 +180,6 @@ button,
     background: #00000059;
     border-radius: 30px;
     box-sizing: border-box;
-    position: relative;
-    left: 15vh;
 }
 
 /* Hide real menu button on default desktop sizes */
@@ -356,7 +352,7 @@ button,
 /* --- Added Brand Footer Styling Rules (Maintained alignment with your project style) --- */
 .site-footer {
     width: 100%;
-    max-width: 1250px;
+    max-width: 1000px;
     margin-top: auto;
     padding: 40px 20px 20px 20px;
     box-sizing: border-box;
