@@ -22,3 +22,12 @@ document.querySelectorAll('.menu-icon-btn').forEach(button => {
         button.focus();
     });
 });
+
+if (document.documentElement.classList.contains('intro-loading')) {
+    window.setTimeout(() => {
+        document.documentElement.classList.add('intro-loader-dismissed');
+        window.setTimeout(() => {
+            document.documentElement.classList.remove('intro-loading', 'intro-loader-dismissed');
+        }, 1000);
+    }, 1800);
+}

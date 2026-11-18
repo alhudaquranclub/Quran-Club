@@ -6,6 +6,16 @@
     <meta property="og:title" content="al huda quran club"/>
     <meta name="google-site-verification" content="xXkXzthPboyLAA1CFmPHayTS0Q22dg2k4ZPgUb1dG1w" />
     <title>Al-Huda Quran Club</title>
+    <script>
+        try {
+            if (!sessionStorage.getItem('quran-club-intro-shown')) {
+                sessionStorage.setItem('quran-club-intro-shown', 'true');
+                document.documentElement.classList.add('intro-loading');
+            }
+        } catch (error) {
+            document.documentElement.classList.add('intro-loading');
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="Untitled_Design-removebg-preview.png" type="image/x-icon">
     <link rel="preconnect" href="https://googleapis.com">
@@ -15,6 +25,11 @@
 
 </head>
 <body>
+    <div class="intro-loader" id="intro-loader" role="status" aria-label="Loading Al-Huda Quran Club">
+        <img src="Al-Hudā Qur’ān Club Logo-Photoroom.png" alt="">
+        <div class="loader-spinner" aria-hidden="true"></div>
+    </div>
+
     <!-- Added id to navbar container for clean state toggling -->
     <nav class="navbar" id="main-navbar">
         <div class="navleft">
