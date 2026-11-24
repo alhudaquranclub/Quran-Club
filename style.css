@@ -844,6 +844,7 @@ button,
 }
 
 .gallery-item {
+    position: relative;
     min-width: 0;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -878,6 +879,32 @@ button,
 .gallery-image-button:focus-visible {
     outline: 2px solid #b4d32b;
     outline-offset: -2px;
+}
+
+.gallery-download-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    background: transparent;
+}
+
+.gallery-download-link::before {
+    position: absolute;
+    z-index: 0;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    content: "";
+    inset: 0;
+}
+
+.gallery-download-link .gallery-action-icon {
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-download-link:focus-visible {
+    outline-offset: 3px;
 }
 
 .gallery-image-view-icon {
