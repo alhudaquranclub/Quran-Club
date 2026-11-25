@@ -147,8 +147,6 @@ button,
     max-width: 550px; 
     margin: 0;
     text-align: left;
-    position: relative;
-    top: -5vh;
 }
 
 .cta-row {
@@ -193,6 +191,11 @@ button,
 @media (max-width: 900px) {
     .about {
         column-gap: 32px;
+    }
+
+    .about-text {
+        position: relative;
+        top: -5vh;
     }
 }
 
@@ -1069,5 +1072,52 @@ button,
     .status-btn {
         padding: 4px 8px;
         font-size: 11px;
+    }
+}
+
+@media (min-width: 901px) {
+    .navbar {
+        height: 104px;
+        max-width: 1100px;
+        padding: 0 32px;
+    }
+
+    .navleft img {
+        width: 50vh;
+        height: 50vh;
+        position: relative;
+        
+    }
+
+    .navright a {
+        padding: 13px 26px;
+        font-size: 19px;
+    }
+    .about{
+        position: relative;
+        top:-1vh;
+    }
+
+    .about-text {
+        position: relative;
+        top: -5vh;
+    }
+
+    .site-footer {
+        max-width: 1100px;
+        padding: 44px 22px 22px;
+    }
+
+    .site-footer p {
+        font-size: 15px;
+    }
+
+    .site-footer svg {
+        width: 20px;
+        height: 20px;
+    }
+    .about img{
+        position: relative;
+        left:5vh;
     }
 }
